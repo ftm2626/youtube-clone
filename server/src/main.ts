@@ -6,6 +6,8 @@ import cors from "cors";
 import { CORS_ORIGIN } from "./constants";
 import helmet from "helmet";
 import userRouter from "./modules/user/user.route";
+import authRouter from "./modules/auth/auth.route";
+import deserializeUser from "./middleware/deserializeUser";
 
 const port = process.env.PORT || 4000;
 
@@ -22,7 +24,10 @@ app.use(
 
 app.use(helmet());
 
+app.use(deserializeUser)
+
 app.use('/api/users',userRouter)
+app.use('/api/auth',authRouter)
 
 const server = app.listen(port, async () => {
   await connectToDatabase();

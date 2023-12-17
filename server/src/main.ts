@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { CORS_ORIGIN } from "./constants";
 import helmet from "helmet";
+import userRouter from "./modules/user/user.route";
 
 const port = process.env.PORT || 4000;
 
@@ -20,6 +21,8 @@ app.use(
 );
 
 app.use(helmet());
+
+app.use('/api/users',userRouter)
 
 const server = app.listen(port, async () => {
   await connectToDatabase();
